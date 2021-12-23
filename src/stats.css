@@ -1,0 +1,143 @@
+#container {
+    margin-top: 0px;
+    height: 550px;
+    overflow: scroll;
+}
+
+table#stats tr {
+    border-top: 1px solid rgb(179, 179, 179);
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0px;
+    border-collapse: separate;
+} 
+
+table#stats tr:hover {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+} 
+
+/*table#stats tr:hover td:first-child  {
+} */
+
+/*table#stats {
+  }*/
+
+  table#stats tbody tr td:hover:nth-child(even), 
+  table#stats thead tr th:hover:nth-child(even),
+  table#stats tbody tr td:hover:nth-child(odd), 
+  table#stats thead tr th:hover:nth-child(odd) {
+    background: rgb(227, 242, 253);
+  }
+
+
+table#stats th {
+  min-height: 26px;
+  width: 22px;
+  min-width: 22px;
+  font: 12px;
+}
+
+table#stats thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+table#stats tbody tr td:first-child  {
+  position: sticky;
+  left: 0;
+  width: 170px;
+  max-width: 170px;
+  line-clamp: [];
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background: white;
+  margin: 0;
+  text-align: left;
+  padding: 0;
+  padding-right: 3px;
+  white-space: nowrap;
+}
+
+table#stats thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: -1px;
+    height: 26px;
+    z-index: 1;
+    width: 25vw;
+    background: white;
+    font-weight: 650;
+    font-size: 12px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-collapse: separate
+}
+
+/*table#stats thead th {
+    
+}*/
+
+th#lst:after,
+th#lst:before {
+  text-align: left;
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+th#lst:before {
+  text-align: left;
+  top: 0;
+  border-top: 1px solid rgb(179, 179, 179);
+}
+th#lst:after {
+  text-align: left;
+  bottom: 0;
+  border-bottom: 1px solid rgb(179, 179, 179);
+}
+th#lst2:after,
+th#lst2:before {
+  text-align: center;
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+th#lst2:before {
+  text-align: center;
+  top: 0;
+  border-top: 1px solid rgb(179, 179, 179);
+}
+th#lst2:after {
+  text-align: center;
+  bottom: 0;
+  border-bottom: 1px solid rgb(179, 179, 179);
+}
+
+
+table#stats #lst{
+    text-align: left;
+  }
+
+table#stats td {
+    max-height: 22px;
+    max-width: 85px;
+    width: 85px;
+    min-width: 85px;
+    margin: 0;
+    padding: 0;
+}
+
+table#stats tbody tr td:nth-child(even), table#stats thead tr th:nth-child(even) {
+    background: lightgray;
+  }
+
+tr#lcol {
+    margin: 0;
+    border-collapse: separate
+}
