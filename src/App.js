@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import {TickerProvider} from "./components/TickerContext";
 
 //components
 import HistPrices from "./components/HistPrices";
 import Navbar from "./components/Navbar";
-import Navbar2 from "./components/Navbar2";
 import StockNews from "./components/StockNews";
 import Profiletwo from "./components/Profile2";
 import Summary from './components/Summary';
@@ -32,9 +31,10 @@ import UpdateProfile from './components/UpdateProfile';
 import Signup from './components/Signup';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import { useAuth } from "./contexts/AuthContext"
 
 function App() {
-
+  const  currentUser  = useAuth()
   return (
     <TickerProvider>
     <AuthProvider>
@@ -42,30 +42,38 @@ function App() {
         <Fragment>
           <div className="container">
           <Navbar />
-            <PrivateRoute exact path="/profile" component={Dashboard} />
-            <PrivateRoute path="/update-profile" component={UpdateProfile} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-            <Route path="/home" component={StockNews} />
-            <Route path="/company/" component={CompanyHeader} />
-            <Route path="/company/summary" component={Summary} />
-            <Route path="/company/profile/:symb" component={Profiletwo} />
-            <Route path="/company/historical/:symb" component={HistPrices} />
-            <Route path='/company/quote/:symb' component={Myquote} />
-            <Route path="/company/news/:symb" component={CompanyNews} />
-            <Route path="/company/financials/:report/:period/:symb" component={FinancialNav} />
-            <Route path="/company/financials/income-statement/quarter/:symb" component={IncomeQ} />
-            <Route path="/company/financials/income-statement/annual/:symb" component={IncomeA} />
-            <Route path="/company/financials/balance-sheet/annual/:symb" component={BalanceA} />
-            <Route path="/company/financials/balance-sheet/quarter/:symb" component={BalanceQ} />
-            <Route path="/company/financials/cash-flow/quarter/:symb" component={CashflowQ} />
-            <Route path="/company/financials/cash-flow/annual/:symb" component={CashflowA} />
-            <Route path="/company/statistics/:report/:period/:symb" component={StatisticsNav} />
-            <Route path="/company/statistics/key-metrics/annual/:symb" component={KeyMetricsA} />
-            <Route path="/company/statistics/key-metrics/quarter/:symb" component={KeyMetricsQ} />
-            <Route path="/company/statistics/ratios/annual/:symb" component={RatiosA} />
-            <Route path="/company/statistics/ratios/quarter/:symb" component={RatiosQ} />
+            <Routes>
+              <Route exact path="/profile" render={props => {
+        return currentUser ? <Dashboard {...props} /> : <Navigate to="/login" />
+      }}/>
+              <Route exact path="/update-profile" render={props => {
+        return currentUser ? <UpdateProfile {...props} /> : <Navigate to="/login" />
+      }} />
+              {/*(<PrivateRoute exact path="/profile" element={<Dashboard/>} />
+              <PrivateRoute path="/update-profile" element={<UpdateProfile/>} />*/}
+              <Route path="/signup" element={<Signup/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/forgot-password" element={<ForgotPassword/>} />
+              <Route path="/home" element={<StockNews/>} />
+              <Route path="/company/" element={<CompanyHeader/>} />
+              <Route path="/company/summary" element={<Summary/>} />
+              <Route path="/company/profile/:symb" element={<Profiletwo/>} />
+              <Route path="/company/historical/:symb" element={<HistPrices/>} />
+              <Route path='/company/quote/:symb' element={<Myquote/>} />
+              <Route path="/company/news/:symb" element={<CompanyNews/>} />
+              <Route path="/company/financials/:report/:period/:symb" element={<FinancialNav/>} />
+              <Route path="/company/financials/income-statement/quarter/:symb" element={<IncomeQ/>} />
+              <Route path="/company/financials/income-statement/annual/:symb" element={<IncomeA/>} />
+              <Route path="/company/financials/balance-sheet/annual/:symb" element={<BalanceA/>} />
+              <Route path="/company/financials/balance-sheet/quarter/:symb" element={<BalanceQ/>} />
+              <Route path="/company/financials/cash-flow/quarter/:symb" element={<CashflowQ/>} />
+              <Route path="/company/financials/cash-flow/annual/:symb" element={<CashflowA/>} />
+              <Route path="/company/statistics/:report/:period/:symb" element={<StatisticsNav/>} />
+              <Route path="/company/statistics/key-metrics/annual/:symb" element={<KeyMetricsA/>} />
+              <Route path="/company/statistics/key-metrics/quarter/:symb" element={<KeyMetricsQ/>} />
+              <Route path="/company/statistics/ratios/annual/:symb" element={<RatiosA/>} />
+              <Route path="/company/statistics/ratios/quarter/:symb" element={<RatiosQ/>} />
+            </Routes>
           </div>
         </Fragment>
       </BrowserRouter>
