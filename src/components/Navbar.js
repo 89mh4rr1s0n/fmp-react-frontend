@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useReducer, useState } from "react";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { TickerContext } from './TickerContext';
 import { useAuth } from "../contexts/AuthContext";
 import ConfirmLogout from './ConfirmLogout';
@@ -27,7 +27,7 @@ const Navbar2 = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
     const [data, setData] = useContext(TickerContext);
-    const history = useNavigate();
+    const history = useHistory();
     console.log(symb)
 
     const getData = async () => {

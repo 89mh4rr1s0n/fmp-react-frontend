@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -11,7 +11,7 @@ export default function Login() {
   const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+  const history = useHistory()
   const [showPassword, setShowPassword] = useState(false)
   const [pwordVal, setPwordVal] = useState("")
 
@@ -22,7 +22,7 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      navigate("../profile", { replace: true });
+      history.push("/profile")
     } catch {
       setError("Failed to log in")
     }
@@ -30,7 +30,6 @@ export default function Login() {
     setLoading(false)
   }
 
-  //console.log(pwordVal.length)
 
   return (
     <>
@@ -60,7 +59,7 @@ export default function Login() {
                   {showPassword === false ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </button>
                 : <div></div>}
-                
+
               </div>
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
