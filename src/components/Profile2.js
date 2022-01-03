@@ -18,7 +18,7 @@ const Profiletwo = () => {
 
     const setTheData = async () => {
         setLoading(true)
-        const quote = await fetch(`https://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
+        const quote = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symb.toUpperCase()}`)
         const jsonQuote = await quote.json();
         const sicCode = await fetch(`https://financialmodelingprep.com/api/v4/standard_industrial_classification?symbol=${symb.toUpperCase()}&apikey=${key}`)
         const jsonSic = await sicCode.json();
