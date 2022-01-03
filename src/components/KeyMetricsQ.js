@@ -7,6 +7,7 @@ import '../stats.css';
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const KeyMetricsQ = () => {
+    
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
@@ -18,10 +19,6 @@ const KeyMetricsQ = () => {
         setLoading(true);
         const kmData = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics/${symb.toUpperCase()}?period=quarter&limit=40&apikey=${key}`)
         const kmJson = await kmData.json()
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.kmA = kmJson;
         setKeyMetricQ(kmJson);
         setLoading(false);
     }

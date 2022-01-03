@@ -6,6 +6,7 @@ import ReactLoading from "react-loading";
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const RatiosA = () => {
+  
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
@@ -17,10 +18,6 @@ const RatiosA = () => {
         setLoading(true);
         const ratioData = await fetch(`https://financialmodelingprep.com/api/v3/ratios/${symb.toUpperCase()}?limit=40&apikey=${key}`)
         const ratioJson = await ratioData.json()
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.ratiosA = ratioJson;
         setRatiosA(ratioJson);
         setLoading(false);
     }

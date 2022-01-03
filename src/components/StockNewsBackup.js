@@ -14,7 +14,7 @@ const StockNews = () => {
 
     const getData = useCallback( async () => {
         setLoading(true);
-        const data = await fetch(`http://localhost:5000/home`)
+        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/home`)
         const jsonData = await data.json();
         setNews(jsonData.news);
         setMostActive(jsonData.mostActive);

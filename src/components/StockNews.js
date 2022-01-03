@@ -1,7 +1,8 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import {getRandomColor,createImageFromInitials} from './Utils';
 import { Link } from 'react-router-dom';
+import '../myStyles.css';
 
 
 const StockNews = () => {
@@ -11,16 +12,16 @@ const StockNews = () => {
     const [gainers, setGainers] = useState([])
     const [sectors, setSectors] = useState([])
 
-    const getData = useCallback( async () => {
+    const getData = async () => {
         setLoading(true);
-        const data = await fetch(`https://fmp-react-app.herokuapp.com/home`)
+        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/home`)
         const jsonData = await data.json();
         setNews(jsonData.news);
         setMostActive(jsonData.mostActive);
         setGainers(jsonData.gainers);
         setSectors(jsonData.sectorPerformance);
         setLoading(false);
-    }, []);
+    };
 
     useEffect(() => {
         getData();
@@ -54,9 +55,11 @@ const StockNews = () => {
                     <div key={index} className="mb-3 d-flex" style={{maxHeight: "141px"}}>
                         <a 
                         href={news.url} 
+                        rel="noopener noreferrer"
                         target="_blank">
                             <img 
                             style={{maxWidth: '220px'}} 
+                            alt="news item"
                             className="mr-4 w-auto img-fluid" 
                             src={news.image}>
                             </img>
@@ -67,7 +70,7 @@ const StockNews = () => {
                             <div id="homeNewsT">{`${news.text}`}</div>
                             <div id="newsF" className="d-flex mt-0">
                                 <div className="mr-4">Source: </div>
-                                <a href={news.url} target="_blank" id="newsF">
+                                <a href={news.url} target="_blank" rel="noopener noreferrer" id="newsF">
                                     <div>{news.site}</div>
                                 </a>
                             </div>
@@ -117,7 +120,10 @@ const StockNews = () => {
                     
                         <div id='bjc' className="d-flex border-top">
                             <div className="d-flex" id="imgContainer" >
-                                    <img id="prImgSml" src={`https://financialmodelingprep.com/image-stock/${gainers.ticker}.png`}
+                                    <img 
+                                    id="prImgSml"
+                                    alt="company logo" 
+                                    src={`https://financialmodelingprep.com/image-stock/${gainers.ticker}.png`}
                                     onError={(e)=>{e.target.onerror = null; e.target.src=`${createImageFromInitials(30, `${gainers.ticker}`, getRandomColor())}`   }}></img>
                                 </div>
                             <div className="justify-content-between">
@@ -204,6 +210,7 @@ const StockNews = () => {
                             <div className="d-flex" id="imgContainer">
                                 <img 
                                 id="prImgSml" 
+                                alt="company logo"
                                 src={`https://financialmodelingprep.com/image-stock/${mostActive.ticker}.png`}
                                 onError={(e)=>{e.target.onerror = null; e.target.src=`${createImageFromInitials(30, `${mostActive.ticker}`, getRandomColor())}` }}>
                                 </img>

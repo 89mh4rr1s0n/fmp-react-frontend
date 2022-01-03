@@ -5,21 +5,18 @@ import ReactLoading from "react-loading";
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const CashflowQ = () => {
+  
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
-    
+    const [cashflowQ, setCashflowQ] = useState(null);
+
     const key = process.env.REACT_APP_FMP_API_KEY;
 
-    const [cashflowQ, setCashflowQ] = useState(null);
     const initialize = async () => {
         setLoading(true);
         const cashflowQData = await fetch(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${symb.toUpperCase()}?period=quarter&limit=20&apikey=${key}`)
         const cashflowQJson = await cashflowQData.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.cashflowQ = cashflowQJson;
         setCashflowQ(cashflowQJson);
         setLoading(false);
     }

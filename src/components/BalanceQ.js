@@ -16,10 +16,6 @@ const BalanceQ = () => {
         setLoading(true);
         const balanceQData = await fetch(`https://financialmodelingprep.com/api/v3/balance-sheet-statement/${symb.toUpperCase()}?period=quarter&limit=20&apikey=${key}`)
         const balanceQJson = await balanceQData.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.balanceQ = balanceQJson;
         setBalanceQ(balanceQJson);
         setLoading(false);
     }

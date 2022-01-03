@@ -11,25 +11,20 @@ const StatisticsNav = (props) => {
 
     const initialize = async () => {
         setLoading(true);
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
+        const quote = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symb.toUpperCase()}`)
         const jsonQuote = await quote.json();
         setData(jsonQuote)
-        data.report = "income-statement";
         setLoading(false);
     }
 
-    console.log(symb)
-    console.log(report)
-    console.log(period)
 
     useEffect(() => {
         initialize();
     }, [])
 
 
-
     return <Fragment>
-        {data && <>
+        
             <div className="d-flex" style={{minWidth: "100%",backgroundColor: "#e3f2fd",height: "30px"}}>
                 <div className="justify-content-between" style={{height: "30px"}}>
                     <nav className="navbar-expand-sm" style={{backgroundColor: "#e3f2fd"}}>
@@ -55,7 +50,7 @@ const StatisticsNav = (props) => {
                             </ul>
                     </nav>
                 </div>
-            </div></>}
+            </div>
         </Fragment>
 }
 

@@ -5,12 +5,10 @@ import ReactLoading from "react-loading";
 
 
 const CompanyNews = () => {
+    
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
-    const [cim, setCim] = useState([]);
-    const [profile, setProfile] = useState([]);
-    const [quote, setQuote] = useState([]);
     const [news, setNews] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,21 +16,13 @@ const CompanyNews = () => {
 
     const setTheData = async () => {
         setLoading(true);
-        const news = await fetch(`http://fmp-react-app.herokuapp.com/stockNews/${symb.toUpperCase()}`)
+        const news = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/stockNews/${symb.toUpperCase()}`)
         const jsonNews = await news.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.news = jsonNews
-        setCim(data.cimData)
-        setProfile(data.profile)
-        setQuote(data.quote)
         setNews(jsonNews)
         setLoading(false);
     }
 
     useEffect(() => {
-        //setData()
         setTheData()
     }, [])
 

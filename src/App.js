@@ -8,7 +8,6 @@ import HistPrices from "./components/HistPrices";
 import Navbar from "./components/Navbar";
 import StockNews from "./components/StockNews";
 import Profiletwo from "./components/Profile2";
-import Summary from './components/Summary';
 import Myquote from './components/MyQuote';
 import CompanyHeader from './components/CompanyHeader';
 import CompanyNews from "./components/CompanyNews";
@@ -48,7 +47,6 @@ function App() {
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/home" component={StockNews} />
             <Route path="/company/" component={CompanyHeader} />
-            <Route path="/company/summary" component={Summary} />
             <Route path="/company/profile/:symb" component={Profiletwo} />
             <Route path="/company/historical/:symb" component={HistPrices} />
             <Route path='/company/quote/:symb' component={Myquote} />

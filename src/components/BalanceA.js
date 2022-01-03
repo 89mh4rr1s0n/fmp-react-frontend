@@ -5,6 +5,7 @@ import ReactLoading from "react-loading";
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const BalanceA = () => {
+
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
@@ -16,10 +17,6 @@ const BalanceA = () => {
         setLoading(true);
         const balanceAData = await fetch(`https://financialmodelingprep.com/api/v3/balance-sheet-statement/${symb.toUpperCase()}?limit=10&apikey=${key}`)
         const balanceAJson = await balanceAData.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.balanceA = balanceAJson;
         setBalanceA(balanceAJson);
         setLoading(false);
     }

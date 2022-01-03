@@ -16,12 +16,7 @@ const IncomeA = () => {
     const initialize = async () => {
         setLoading(true);
         const incomeAData = await fetch(`https://financialmodelingprep.com/api/v3/income-statement/${symb.toUpperCase()}?limit=10&apikey=${key}`)
-        const incomeAJson =  await incomeAData.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        //setData(jsonQuote)
-        //data.incomeA = incomeAJson;
-        //data.report = "income-statement";
+        const incomeAJson = await incomeAData.json();
         setIncomeA(incomeAJson);
         setLoading(false);
     };

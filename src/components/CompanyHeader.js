@@ -1,45 +1,21 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { TickerContext } from './TickerContext';
-import ReactLoading from "react-loading";
 import {getRandomColor,createImageFromName} from './Utils';
 
 const CompanyHeader = (props) => {
-    const { symb } = useParams();
-    const { report } = useParams();
-    const { period } = useParams();
-    const { page } = useParams();
     const [data, setData] = useContext(TickerContext);
     const [loading, setLoading] = useState(false);
 
-    const [cim, setCim] = useState(null)
-    const [profile, setProfile] = useState(null)
-    const [quote, setQuote] = useState(null)
-
-    let livePrice = 0;
-    let liveChange = 0;
-    let liveChangePercentage = 0;
 
     const getQuote = async () => {
         setLoading(true);
         //const info = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${data.profile[0].symbol.toUpperCase()}`)
-        const info = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
+        const info = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${props.location.pathname.split("/").slice(-1)[0]}`)
         const jsonInfo = await info.json();
         setData(jsonInfo)
         setLoading(false);
     }
-
-    const updateQuote = async () => {
-        const info = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonInfo = await info.json();
-        livePrice = jsonInfo.price
-        liveChange = jsonInfo.change
-        liveChangePercentage = jsonInfo.changesPercentage
-    }
-
-    console.log(livePrice)
-    console.log(liveChange)
-    console.log(liveChangePercentage)
 
     const setTheData = () => {
         setLoading(true);
@@ -48,22 +24,14 @@ const CompanyHeader = (props) => {
         setLoading(false);
     }
 
-    console.log(useParams())
-    console.log(data)
-    console.log(props)
 
     useEffect(() => {
         setTheData()
-        //getQuote()
-        //const interval = setInterval(() => {
-        //    updateQuote()
-        //  }, 2000);
-        //  return () => clearInterval(interval);
+        getQuote()
     }, [])
 
     if(loading){
-        return <div>
-            <ReactLoading id="loading" type={'bars'} color="#007bff" />
+        return <div style={{marginTop: "180px"}}>
         </div>
     }
 

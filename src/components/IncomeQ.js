@@ -9,9 +9,6 @@ const IncomeQ = () => {
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
-    const [cim, setCim] = useState([]);
-    const [profile, setProfile] = useState([]);
-    const [quote, setQuote] = useState([]);
     const [incomeQ, setIncomeQ] = useState(null);
 
     const key = process.env.REACT_APP_FMP_API_KEY;
@@ -20,14 +17,6 @@ const IncomeQ = () => {
         setLoading(true);
         const incomeQData = await fetch(`https://financialmodelingprep.com/api/v3/income-statement/${symb.toUpperCase()}?period=quarter&limit=20&apikey=${key}`)
         const incomeQJson = await incomeQData.json();
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        data.incomeQ = incomeQJson
-        data.report = "income-statement";
-        setCim(data.cimData)
-        setProfile(data.profile)
-        setQuote(data.quote)
         setIncomeQ(incomeQJson);
         setLoading(false);
     }

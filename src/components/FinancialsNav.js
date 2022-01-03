@@ -11,7 +11,7 @@ const FinancialNav = (props) => {
 
     const initialize = async () => {
         setLoading(true);
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
+        const quote = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symb.toUpperCase()}`)
         const jsonQuote = await quote.json();
         setData(jsonQuote)
         data.report = "income-statement";

@@ -15,7 +15,7 @@ const Myquote = (props) => {
     const getData = async () => {
         //setData([]);
         setLoading(true);
-        const data = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
+        const data = await fetch(`https://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
         const jsonQuote = await data.json();
         setData(jsonQuote)
         setCim(jsonQuote.perfAtr)

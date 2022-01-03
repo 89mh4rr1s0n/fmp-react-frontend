@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 const Navbar2 = () => {
 
     const getAvailable = async () => {
-        const availableData = await fetch(`http://fmp-react-app.herokuapp.com/symbols`);
+        const availableData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/symbols`);
         const availableJson = await availableData.json();
         setAvailable(availableJson);
     }
@@ -28,10 +28,11 @@ const Navbar2 = () => {
     const [wordEntered, setWordEntered] = useState("");
     const [data, setData] = useContext(TickerContext);
     const history = useHistory();
+
     console.log(symb)
 
     const getData = async () => {
-        const data = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symbol.toUpperCase()}`)
+        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symbol.toUpperCase()}`)
         const jsonData = await data.json();
         setQuote(jsonData.quote);
         setProfile(jsonData.profile);
@@ -94,10 +95,10 @@ const Navbar2 = () => {
 
     return <Fragment>
         <nav class="navbar fixed-top  navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="http://localhost:3000/home">MH FINANCE</a>
+  <a class="navbar-brand" href={`${process.env.REACT_APP_CLIENT_DOMAIN}/home`}>INTALLEX</a>
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="http://localhost:3000/home">Home</a>
+      <a class="nav-link" href={`${process.env.REACT_APP_CLIENT_DOMAIN}/home`}>Home</a>
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto">
@@ -122,7 +123,7 @@ const Navbar2 = () => {
                 {available && symbol.length != 0 && <>
                 <div id="dataResult">
                     {filteredSymbols.slice(0, 15).map((value, key) => {
-                        return <a style={{textDecoration: "none"}} href={`http://localhost:3000/company/quote/${value.symbol}`}>
+                        return <a style={{textDecoration: "none"}} href={`${process.env.REACT_APP_CLIENT_DOMAIN}/company/quote/${value.symbol}`}>
                             <div /*onClick={handleSubmit}*/ id="dataItems" className="d-flex">
                                 <div id="dropdownSymbol">{value.symbol}</div>
                                 <div id="dropdownName">{value.name}</div>

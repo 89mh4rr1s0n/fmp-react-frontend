@@ -6,6 +6,7 @@ import { shortVal } from './Utils';
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const KeyMetricsA = () => {
+    
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
@@ -17,10 +18,6 @@ const KeyMetricsA = () => {
         setLoading(true);
         const kmData = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics/${symb.toUpperCase()}?limit=40&apikey=${key}`)
         const kmJson = await kmData.json()
-        const quote = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        data.kmA = kmJson;
-        setData(jsonQuote)
         setKeyMetricA(kmJson);
         setLoading(false);
     }
