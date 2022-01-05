@@ -84,7 +84,7 @@ const Navbar2 = () => {
         };
 
     useEffect(() => {
-        getData()
+        //getData()
         getAvailable()
         //const interval = setInterval(() => {
         //    getData()

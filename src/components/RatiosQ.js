@@ -41,7 +41,7 @@ const RatiosQ = () => {
                 <thead>
                     <tr>
                         <th id="lst">Date</th>
-                        {RatiosQ.map(date =>(
+                        {RatiosQ.map((date,i) =>(
                         <th id="lst2">{date.date}</th>
                         ))}
                     </tr>
