@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-export default function Login() {
+export default function LoginPage() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const { login } = useAuth()
@@ -17,8 +17,7 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-
-    try {
+    try { 
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
@@ -30,6 +29,12 @@ export default function Login() {
     setLoading(false)
   }
 
+  useEffect(() => {
+    return () => { 
+      emailRef.current = false
+      passwordRef.current = false
+    }
+  }, [])
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, NavLink } from 'react-router-dom';
 import { TickerContext } from './TickerContext';
 import { useAuth } from "../contexts/AuthContext";
 import ConfirmLogout from './ConfirmLogout';
@@ -70,21 +70,16 @@ const Navbar2 = () => {
         };
 
     useEffect(() => {
-        //getData()
         getAvailable()
-        //const interval = setInterval(() => {
-        //    getData()
-        //  }, 2000);
-        //  return () => clearInterval(interval);
     }, [])
 
 
     return <Fragment>
         <nav className="navbar fixed-top  navbar-expand-sm bg-dark navbar-dark">
-        <a className="navbar-brand" href={`${process.env.REACT_APP_CLIENT_DOMAIN}/home`}>INTALLEX</a>
+        <NavLink className="navbar-brand" to={`/home`}>INTALLEX</NavLink>
         <ul className="navbar-nav">
             <li className="nav-item">
-            <a className="nav-link" href={`${process.env.REACT_APP_CLIENT_DOMAIN}/home`}>Home</a>
+            <NavLink className="nav-link" to={`/home`}>Home</NavLink>
             </li>
         </ul>
         <ul className="nav navbar-nav ml-auto">
@@ -109,12 +104,12 @@ const Navbar2 = () => {
                 <div id="dataResult">
                     {filteredSymbols.slice(0, 15).map((value, key) => {
                         return <a key={key} style={{textDecoration: "none"}} href={`${process.env.REACT_APP_CLIENT_DOMAIN}/company/quote/${value.symbol}`}>
-                            <div /*onClick={handleSubmit}*/ id="dataItems" className="d-flex">
-                                <div id="dropdownSymbol">{value.symbol}</div>
-                                <div id="dropdownName">{value.name}</div>
-                                <div id="exch">{value.exchange}</div>
-                            </div>
-                        </a>
+                        <div /*onClick={handleSubmit}*/ id="dataItems" className="d-flex">
+                            <div id="dropdownSymbol">{value.symbol}</div>
+                            <div id="dropdownName">{value.name}</div>
+                            <div id="exch">{value.exchange}</div>
+                        </div>
+                    </a>
                             
                     })}
                 </div>

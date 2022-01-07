@@ -25,7 +25,7 @@ import RatiosA from "./components/RatiosA";
 import RatiosQ from "./components/RatiosQ";
 import Dashboard from './components/Dashboard';
 import ForgotPassword from './components/ForgotPassword';
-import Login from './components/Login';
+import LoginPage from './components/Login';
 import UpdateProfile from './components/UpdateProfile';
 import Signup from './components/Signup';
 import { AuthProvider } from './contexts/AuthContext';
@@ -43,7 +43,7 @@ function App() {
             <PrivateRoute exact path="/profile" component={Dashboard} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" component={LoginPage} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/home" component={StockNews} />
             <Route path="/company/" component={CompanyHeader} />

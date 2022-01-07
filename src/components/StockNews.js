@@ -34,17 +34,16 @@ const StockNews = () => {
     }
 
     return <Fragment>   
-        <div 
-        class="row1" 
+        <div
         className="d-flex" 
         style={{width: "100%", margin: "80px 0px 0px 0px"}}>
             <h5 
-            class="col-sm-9" 
+            className="col-sm-9" 
             style={{maxWidth: "680px", padding: "0px", fontSize: "17px"}}>
                 News
             </h5>
             <h5 
-            class="col-sm-3" 
+            className="col-sm-3" 
             style={{padding: "0px", fontSize: "17px"}}>
                 Sector Performance
             </h5>
@@ -53,17 +52,19 @@ const StockNews = () => {
             <div>
                 {news.map((news, index) =>(
                     <div key={index} className="mb-3 d-flex" style={{maxHeight: "141px"}}>
-                        <a 
-                        href={news.url} 
-                        rel="noopener noreferrer"
-                        target="_blank">
-                            <img 
-                            style={{maxWidth: '220px'}} 
-                            alt="news item"
-                            className="mr-4 w-auto img-fluid" 
-                            src={news.image}>
-                            </img>
-                        </a>
+                        <div>
+                            <a 
+                            href={news.url} 
+                            rel="noopener noreferrer"
+                            target="_blank">
+                                <img 
+                                style={{maxWidth: '220px'}} 
+                                alt="news item"
+                                className="mr-4 w-auto img-fluid" 
+                                src={news.image}>
+                                </img>
+                            </a>
+                        </div>
                         <div>
                             <div id="newsF">{news.publishedDate}</div>
                             <h6 id="newsH">{news.title}</h6>
@@ -78,7 +79,7 @@ const StockNews = () => {
                     </div>
                     ))}
             </div>
-            <div class="col-sm-4">
+            <div className="col-sm-4">
                 <div style={{marginLeft: "45px", width: "250px"}}>
                     <div style={{minWitdh: "250px"}} className="d-flex">
                         <div className="mr-2" style={{fontWeight: "700", width: "190px", fontSize: "14px"}}>sector</div>

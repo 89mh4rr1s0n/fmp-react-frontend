@@ -39,7 +39,19 @@ const CompanyNews = () => {
             {news && <>
             {news.map((n, index) =>(
                 <div key={index} className="d-flex mb-3" style={{maxHeight: "141px"}}>
-                    <div><a href={n.url} target="_blank" rel="noopener noreferrer"><img style={{maxWidth: '250px', maxHeight: '141px'}}  alt="company" className="mr-4 . w-auto . img-fluid " src={n.image}></img></a></div>
+                    <div>
+                        <a 
+                        href={n.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer">
+                            <img 
+                            style={{maxWidth: '250px', maxHeight: '141px'}}  
+                            alt="company" 
+                            className="mr-4 . w-auto . img-fluid " 
+                            src={n.image}>
+                            </img>
+                        </a>
+                    </div>
                     <div>
                         <div id="newsF">{n.publishedDate}</div>
                         <h6 id="newsH">{n.title}</h6>
