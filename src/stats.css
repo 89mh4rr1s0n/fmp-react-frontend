@@ -134,7 +134,7 @@ table#stats td {
 }
 
 table#stats tbody tr td:nth-child(even), table#stats thead tr th:nth-child(even) {
-    background: lightgray;
+    background: rgb(221, 221, 221);
   }
 
 tr#lcol {

@@ -339,7 +339,7 @@ thead #keyExecs th {
 }
 
 #str:nth-child(even) {
-    background: lightgray;
+    background: rgb(226, 225, 225);
 }
 
 #statRow1D {
