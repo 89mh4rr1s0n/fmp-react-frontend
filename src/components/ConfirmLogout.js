@@ -3,8 +3,8 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function ConfirmLogout() {
 
-    const { currentUser, logout } = useAuth()
-    const [error, setError] = useState("")
+    const { logout } = useAuth()
+    const [setError] = useState("")
 
     async function handleLogout() {
         setError("")

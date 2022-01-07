@@ -5,14 +5,14 @@ import ReactLoading from "react-loading";
 import { Tooltip, OverlayTrigger } from "react-bootstrap"
 
 const Profiletwo = () => {
+
     const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
-    const [cim, setCim] = useState([])
+    // eslint-disable-next-line
     const [profile, setProfile] = useState(null)
     const [sic, setSic] = useState(null);
     const [keyExecs, setKeyExecs] = useState(null);
-    const [quote, setQuote] = useState([])
 
     const key = process.env.REACT_APP_FMP_API_KEY;
 
@@ -25,18 +25,13 @@ const Profiletwo = () => {
         setSic(jsonSic);
         setData(jsonQuote)
         setKeyExecs(jsonQuote.keyExecs);
-        //setCim(data.cimData)
         setProfile(jsonQuote.profile)
-        //setQuote(data.quote)
-        console.log(data)
         setLoading(false)
     }
 
-    console.log(data)
-    {sic ? console.log(sic) : console.log("fd")}
-
     useEffect(() => {
         setTheData()
+        // eslint-disable-next-line
     }, [])
 
     if(loading){
@@ -48,62 +43,62 @@ const Profiletwo = () => {
     return <Fragment>
 
         {data.profile && <>
-        <div class="row1" className="d-flex mt-5">
+        <div className="row1 d-flex mt-5">
             <div id="HASH" className="justify-content-between mr-4">
                 <div>sector:</div>
                 <div id="right">{data.profile[0].sector}</div>
             </div>
-            <div id="HASH" class="justify-content-between">
+            <div id="HASH" className="justify-content-between">
                 <div>CIK:</div>
                 <div id="right">{data.profile[0].cik}</div>
             </div>
         </div>
-        <div class="row2" className="d-flex ">
-            <div id="HASH" class="justify-content-between mr-4  border-top">
+        <div className="row2 d-flex ">
+            <div id="HASH" className="justify-content-between mr-4  border-top">
                 <div>industry:</div>
                 <div id="right">{data.profile[0].industry}</div>
             </div>
-            <div id="HASH" class="justify-content-between  border-top">
+            <div id="HASH" className="justify-content-between  border-top">
                 <div>ISIN:</div>
                 <div id="right">{data.profile[0].isin}</div>
             </div>
         </div>
-        <div class="row3" className="d-flex ">
-            <div id="HASH" class="justify-content-between mr-4 border-top">
+        <div className="row3 d-flex ">
+            <div id="HASH" className="justify-content-between mr-4 border-top">
                 <div>ceo:</div>
                 <div id="right">{data.profile[0].ceo}</div>
             </div>
-            <div id="HASH" class="justify-content-between border-top">
+            <div id="HASH" className="justify-content-between border-top">
                 <div>CUSIP:</div>
                 <div id="right">{data.profile[0].cusip}</div>
             </div>
         </div>
-        <div class="row4" className="d-flex ">
-            <div id="HASH" class="justify-content-between mr-4 border-top" >
+        <div className="row4 d-flex ">
+            <div id="HASH" className="justify-content-between mr-4 border-top" >
                 <div>sic code:</div>
-                <div id="right">{sic ? sic[0].siccode : "-"}</div>
+                <div id="right">{sic ? sic[0].sicCode : "-"}</div>
             </div>
-            <div id="HASH" class="justify-content-between mr-5 border-top" >
+            <div id="HASH" className="justify-content-between mr-5 border-top" >
                 <div>sic title:</div>
                 <div id="right">{sic ? sic[0].industryTitle : "-"}</div>
             </div>
         </div>
-        <div class="row5" className="d-flex ">
-            <div id="HASH" class="justify-content-between mr-4 border-top" >
+        <div className="row5 d-flex ">
+            <div id="HASH" className="justify-content-between mr-4 border-top" >
                 <div>shares outstanding:</div>
                 <div id="right">{data.quote[0].sharesOutstanding === null ? "-" : data.quote[0].sharesOutstanding.toLocaleString()}</div>
             </div>
-            <div id="HASH" class="justify-content-between mr-5 border-top" >
+            <div id="HASH" className="justify-content-between mr-5 border-top" >
                 <div>full time employees:</div>
                 <div id="right">{data.profile[0].fullTimeEmployees === null ? "-" : data.profile[0].fullTimeEmployees.toLocaleString()}</div>
             </div>
         </div>
-        <div class="row5" className="d-flex ">
-            <div id="HASH" class="justify-content-between mr-4 border-top">
+        <div className="row5 d-flex ">
+            <div id="HASH" className="justify-content-between mr-4 border-top">
                 <div>IPO date:</div>
                 <div id="right">{data.profile[0].ipoDate}</div>
             </div>
-            <div id="HASH" class="justify-content-between mr-5 border-top">
+            <div id="HASH" className="justify-content-between mr-5 border-top">
                 <div>CEO:</div>
                 <div id="right">{data.profile[0].ceo}</div>
             </div>
@@ -120,6 +115,7 @@ const Profiletwo = () => {
             <a
             style={{fontWeight: "600"}}
             href={data.profile[0].website} 
+            rel="noopener noreferrer"
             target="_blank">{data.profile[0].website}</a></div>
         
                 
@@ -136,8 +132,8 @@ const Profiletwo = () => {
             </thead>  
             <tbody style={{height: "20px"}}>
                 
-                {keyExecs.map(ke =>(
-                    <tr id="keyExecs" >
+                {keyExecs.map((ke, i) =>(
+                    <tr key={i} id="keyExecs" >
                         {ke.title.length >= 33 ?
                         <OverlayTrigger
                           key={ke.title}

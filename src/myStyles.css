@@ -157,7 +157,7 @@ thead #keyExecs th {
     overflow: hidden;
 }
 
-.current a {
+.current {
     /*color: whitesmoke;
     background-color: #007bff;
     border-radius: 7px;*/
@@ -258,11 +258,16 @@ thead #keyExecs th {
     margin: 0;
 }
 
+.nav-item {
+    height: 30px;
+    margin-top: 1px;
+}
+
 .nav-item a {
     height: 30px;
     margin: 0;
-    padding-bottom: 0;
-    padding-top: 2px;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 #loading {

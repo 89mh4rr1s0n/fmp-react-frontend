@@ -1,51 +1,35 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { NavLink, useParams } from 'react-router-dom';
-import { TickerContext } from './TickerContext';
 
 const StatisticsNav = (props) => {
-    const [data, setData] = useContext(TickerContext);
-    const [loading, setLoading] = useState(false);
+  
     const { symb } = useParams();
     const { report } = useParams();
     const { period } = useParams();
-
-    const initialize = async () => {
-        setLoading(true);
-        const quote = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symb.toUpperCase()}`)
-        const jsonQuote = await quote.json();
-        setData(jsonQuote)
-        setLoading(false);
-    }
-
-
-    useEffect(() => {
-        initialize();
-    }, [])
-
 
     return <Fragment>
         
             <div className="d-flex" style={{minWidth: "100%",backgroundColor: "#e3f2fd",height: "30px"}}>
                 <div className="justify-content-between" style={{height: "30px"}}>
                     <nav className="navbar-expand-sm" style={{backgroundColor: "#e3f2fd"}}>
-                            <ul class="navbar-nav . justify-content-around">
-                                <li class="nav-item">
-                                    <NavLink activeClassName="current" to={`/company/statistics/key-metrics/${period}/${symb.toUpperCase()}`}><a class="nav-link" href="#">Key Metrics</a></NavLink>
+                            <ul className="navbar-nav . justify-content-around">
+                                <li className="nav-item">
+                                    <NavLink activeClassName="current" to={`/company/statistics/key-metrics/${period}/${symb.toUpperCase()}`}>Key Metrics</NavLink>
                                 </li>
-                                <li class="nav-item">
-                                    <NavLink activeClassName="current" to={`/company/statistics/ratios/${period}/${symb.toUpperCase()}`}><a class="nav-link" href="#">Ratios</a></NavLink>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="current" to={`/company/statistics/ratios/${period}/${symb.toUpperCase()}`}>Ratios</NavLink>
                                  </li>
                             </ul>
                     </nav>
                 </div>
                 <div id="rightNav" style={{float: 'right'}}> 
                 <nav className="navbar-expand-sm" style={{backgroundColor: "#e3f2fd"}}>
-                            <ul class="navbar-nav . justify-content-around">
-                                <li class="nav-item">
-                                    <NavLink activeClassName="current" to={`/company/statistics/${report}/annual/${symb.toUpperCase()}`}><a class="nav-link" href="#">Annual</a></NavLink>
+                            <ul className="navbar-nav . justify-content-around">
+                                <li className="nav-item">
+                                    <NavLink activeClassName="current" to={`/company/statistics/${report}/annual/${symb.toUpperCase()}`}>Annual</NavLink>
                                 </li>
-                                <li class="nav-item">
-                                    <NavLink activeClassName="current" to={`/company/statistics/${report}/quarter/${symb.toUpperCase()}`}><a class="nav-link" href="#">Quarterly</a></NavLink>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="current" to={`/company/statistics/${report}/quarter/${symb.toUpperCase()}`}>Quarterly</NavLink>
                                  </li>
                             </ul>
                     </nav>

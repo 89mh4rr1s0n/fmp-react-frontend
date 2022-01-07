@@ -4,13 +4,12 @@ import { TickerContext } from './TickerContext';
 import {getRandomColor,createImageFromName} from './Utils';
 
 const CompanyHeader = (props) => {
+
     const [data, setData] = useContext(TickerContext);
     const [loading, setLoading] = useState(false);
 
-
     const getQuote = async () => {
         setLoading(true);
-        //const info = await fetch(`http://fmp-react-app.herokuapp.com/company/info/${data.profile[0].symbol.toUpperCase()}`)
         const info = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${props.location.pathname.split("/").slice(-1)[0]}`)
         const jsonInfo = await info.json();
         setData(jsonInfo)
@@ -24,15 +23,40 @@ const CompanyHeader = (props) => {
         setLoading(false);
     }
 
-
     useEffect(() => {
         setTheData()
         getQuote()
+        // eslint-disable-next-line
     }, [])
 
     if(loading){
         return <div style={{marginTop: "180px"}}>
+                            <nav className="navbar-expand-sm mt-2" style={{backgroundColor: "#e3f2fd", width: "100%"}}>
+                <div style={{ width: "100%"}} id="navbarNav">
+                    <ul className="navbar-nav . justify-content-around">
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/quote/${props.location.pathname.split("/").slice(-1)[0]}`}>Quote</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/news/${props.location.pathname.split("/").slice(-1)[0]}`}>News</NavLink>
+                         </li>
+                         <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/historical/${props.location.pathname.split("/").slice(-1)[0]}`}>Historical Data</NavLink>
+                         </li>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("financials")) {return true;}}} to={`/company/financials/income-statement/annual/${props.location.pathname.split("/").slice(-1)[0]}`}>Financials</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/profile/${props.location.pathname.split("/").slice(-1)[0]}`}>Profile</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("statistics")) {return true;}}} to={`/company/statistics/key-metrics/annual/${props.location.pathname.split("/").slice(-1)[0]}`}>Statistics</NavLink>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
+        
     }
 
     return <Fragment>
@@ -41,11 +65,11 @@ const CompanyHeader = (props) => {
             {data.profile && <>
                 <div className="d-flex . mt-5">
                     <div className="col-sm-2" style={{display: "flex", alignItems: "center", width: "100px"}}>
-                        <img id="prImg" src={data.profile[0].image}
-                        onError={(e)=>{e.target.onerror = null; e.target.src=`${createImageFromName(100, `${data.profile[0].symbol}`, getRandomColor())}`   }}></img>
+                        <img id="prImg"  alt="company" src={data.profile[0].image}
+                        onError={(e)=>{e.target.onerror = null; e.target.src=`${createImageFromName(100, `${props.location.pathname.split("/").slice(-1)[0]}`, getRandomColor())}`   }}></img>
                     </div>
                     <div className="col-sm-10">
-                        <h2 style={{margin: "2px"}}>{data.profile[0].companyName} {`(${data.profile[0].symbol})`}</h2>
+                        <h2 style={{margin: "2px"}}>{data.profile[0].companyName} {`(${props.location.pathname.split("/").slice(-1)[0]})`}</h2>
                         <p id="exchange">{data.profile[0].exchangeShortName} {`${data.profile[0].exchange} -- price quoted in ${data.profile[0].currency}`}</p>
                         <div className="d-flex . mt-0 . align-items-end">
                             <h2 style={{fontWeight: "650"}}>{data.quote[0].price.toFixed(2)}</h2>
@@ -69,24 +93,24 @@ const CompanyHeader = (props) => {
 
                 <nav className="navbar-expand-sm mt-2" style={{backgroundColor: "#e3f2fd", width: "100%"}}>
                 <div style={{ width: "100%"}} id="navbarNav">
-                    <ul class="navbar-nav . justify-content-around">
-                        <li class="nav-item">
-                            <NavLink activeClassName="current" to={`/company/quote/${data.profile[0].symbol}`}><a class="nav-link" href="#">Quote</a></NavLink>
+                    <ul className="navbar-nav . justify-content-around">
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/quote/${props.location.pathname.split("/").slice(-1)[0]}`}>Quote</NavLink>
                         </li>
-                        <li class="nav-item">
-                            <NavLink activeClassName="current" to={`/company/news/${data.profile[0].symbol}`}><a class="nav-link" href="#">News</a></NavLink>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/news/${props.location.pathname.split("/").slice(-1)[0]}`}>News</NavLink>
                          </li>
-                         <li class="nav-item">
-                            <NavLink activeClassName="current" to={`/company/historical/${data.profile[0].symbol}`}><a class="nav-link" href="#">Historical Data</a></NavLink>
+                         <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/historical/${props.location.pathname.split("/").slice(-1)[0]}`}>Historical Data</NavLink>
                          </li>
-                        <li class="nav-item">
-                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("financials")) {return true;}}} to={`/company/financials/income-statement/annual/${data.profile[0].symbol}`}><a class="nav-link" href="#">Financials</a></NavLink>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("financials")) {return true;}}} to={`/company/financials/income-statement/annual/${props.location.pathname.split("/").slice(-1)[0]}`}>Financials</NavLink>
                         </li>
-                        <li class="nav-item">
-                            <NavLink activeClassName="current" to={`/company/profile/${data.profile[0].symbol}`}><a class="nav-link" href="#">Profile</a></NavLink>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" to={`/company/profile/${props.location.pathname.split("/").slice(-1)[0]}`}>Profile</NavLink>
                         </li>
-                        <li class="nav-item">
-                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("statistics")) {return true;}}} to={`/company/statistics/key-metrics/annual/${data.profile[0].symbol}`}><a class="nav-link" href="#">Statistics</a></NavLink>
+                        <li className="nav-item">
+                            <NavLink activeClassName="current" isActive={(match, location) => {if (location.pathname.includes("statistics")) {return true;}}} to={`/company/statistics/key-metrics/annual/${props.location.pathname.split("/").slice(-1)[0]}`}>Statistics</NavLink>
                         </li>
                     </ul>
                 </div>

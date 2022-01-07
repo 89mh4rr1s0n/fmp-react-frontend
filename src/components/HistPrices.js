@@ -1,11 +1,9 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ReactLoading from "react-loading";
-import {TickerContext} from "./TickerContext";
 import { useParams } from 'react-router-dom';
 
 const HistPrices = () => {
 
-    const [data, setData] = useContext(TickerContext);
     const { symb } = useParams();
     const [loading, setLoading] = useState(false);
     const [histData, setHistData] = useState(null);
@@ -20,7 +18,7 @@ const HistPrices = () => {
 
     useEffect(() => {
         getHist();
-        
+        // eslint-disable-next-line
     }, []);
 
     if(loading){
@@ -50,8 +48,8 @@ const HistPrices = () => {
                 </tr>
             </thead>
             <tbody>
-                {histData.historical.map(historical =>(
-                    <tr id="keyExecs" key={historical.label}>
+                {histData.historical.map((historical, i) =>(
+                    <tr id="keyExecs" key={i}>
                         <td style={{height: "10px",padding: "3px",width: "130px"}}>{historical.date}</td>
                         <td style={{height: "10px",padding: "3px"}}>{historical.open === undefined ? "-" : historical.open.toFixed(2)}</td>
                         <td style={{height: "10px",padding: "3px"}}>{historical.high === undefined ? "-" : historical.high.toFixed(2)}</td>

@@ -84,8 +84,8 @@ const StockNews = () => {
                         <div className="mr-2" style={{fontWeight: "700", width: "190px", fontSize: "14px"}}>sector</div>
                         <div className="text-right" style={{fontWeight: "700", fontSize: "14px"}}>%change</div>
                     </div>
-                {sectors.map(sectors =>(
-                    <div className="d-flex">
+                {sectors.map((sectors, i) =>(
+                    <div key={i} className="d-flex">
                         <div className="mr-2. border-top" id="sector" style={{fontSize: '14px', width: "190px"}}>{sectors.sector}</div>
                         {parseFloat(sectors.changesPercentage) < 0 ? 
                         <div 
@@ -115,8 +115,8 @@ const StockNews = () => {
                         <div id='tabh' style={{width: '54px'}}>change</div>
                         <div id='tabh' style={{width: '52px', marginRight: "10px"}}>%change</div>
                     </div>
-                {gainers.map(gainers =>(
-                    <Link to={`/company/quote/${gainers.ticker}`} style={{ textDecoration: 'none' }}>
+                {gainers.map((gainers, i) =>(
+                    <Link key={i} to={`/company/quote/${gainers.ticker}`} style={{ textDecoration: 'none' }}>
                     
                         <div id='bjc' className="d-flex border-top">
                             <div className="d-flex" id="imgContainer" >
@@ -204,8 +204,8 @@ const StockNews = () => {
                         <div id='tabh' style={{width: '54px'}}>change</div>
                         <div id='tabh' style={{width: '52px', marginRight: "10px"}}>%change</div>
                     </div>
-                {mostActive.map(mostActive =>(
-                    <Link to={`/company/quote/${mostActive.ticker}`} style={{ textDecoration: 'none' }}>
+                {mostActive.map((mostActive, i) =>(
+                    <Link key={i} to={`/company/quote/${mostActive.ticker}`} style={{ textDecoration: 'none' }}>
                         <div id='bjc' className="d-flex border-top">
                             <div className="d-flex" id="imgContainer">
                                 <img 
