@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { TickerContext } from './TickerContext';
-import {getRandomColor,createImageFromName} from './Utils';
+import { getRandomColor, createImageFromName } from './Utils';
 
 const CompanyHeader = (props) => {
 

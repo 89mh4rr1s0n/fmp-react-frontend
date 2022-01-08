@@ -39,7 +39,7 @@ function App() {
       <BrowserRouter>
         <Fragment>
           <div className="container">
-          <Navbar />
+            <Route path="/" component={Navbar}/>
             <PrivateRoute exact path="/profile" component={Dashboard} />
             <PrivateRoute path="/update-profile" component={UpdateProfile} />
             <Route path="/signup" component={Signup} />

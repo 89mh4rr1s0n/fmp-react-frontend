@@ -7,14 +7,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 
-const Navbar2 = () => {
+const Navbar = (props) => {
 
     const getAvailable = async () => {
         const availableData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/symbols`);
         const availableJson = await availableData.json();
         setAvailable(availableJson);
     }
-    //contentType
+    
     const { currentUser } = useAuth();
     //console.log(currentUser)
     const [symbol, setSymbol] = useState('')
@@ -42,10 +42,13 @@ const Navbar2 = () => {
     const handleSubmit = e => {
         e.preventDefault()
         data.symbol = symbol.toUpperCase();
+
         getData().then( history.push(`/company/quote/${data.symbol}`));
 
         setSymbol('')
     }
+
+    console.log(`${props.location.pathname.split("/").slice(-1)[0]}`)
 
     const handleFilter = (event) => {
         data.symbol = event.target.value.toUpperCase();
@@ -146,4 +149,4 @@ const Navbar2 = () => {
     </Fragment>
 }
 
-export default Navbar2;
+export default Navbar;
