@@ -14,7 +14,7 @@ const Navbar = (props) => {
         const availableJson = await availableData.json();
         setAvailable(availableJson);
     }
-    
+
     const { currentUser } = useAuth();
     //console.log(currentUser)
     const [symbol, setSymbol] = useState('')
@@ -28,7 +28,7 @@ const Navbar = (props) => {
     const history = useHistory();
 
     const getData = async () => {
-        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${symbol.toUpperCase()}`)
+        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${props.location.pathname.split("/").slice(-1)[0]}`)
         const jsonData = await data.json();
         setQuote(jsonData.quote);
         setProfile(jsonData.profile);
@@ -43,12 +43,11 @@ const Navbar = (props) => {
         e.preventDefault()
         data.symbol = symbol.toUpperCase();
 
-        getData().then( history.push(`/company/quote/${data.symbol}`));
+        getData().then( history.push(`/company/quote/${filteredSymbols[0].symbol}`));
 
         setSymbol('')
     }
 
-    console.log(`${props.location.pathname.split("/").slice(-1)[0]}`)
 
     const handleFilter = (event) => {
         data.symbol = event.target.value.toUpperCase();
@@ -76,16 +75,50 @@ const Navbar = (props) => {
         getAvailable()
     }, [])
 
+    const doNothing = (e) => {
+        e.preventDefault();
+    }
+
 
     return <Fragment>
         <nav className="navbar fixed-top  navbar-expand-sm bg-dark navbar-dark">
         <NavLink className="navbar-brand" to={`/home`}>INTALLEX</NavLink>
         <ul className="navbar-nav">
-            <li className="nav-item">
+            <li className="nav-item" style={{paddingBottom: "35px"}}>
             <NavLink className="nav-link" to={`/home`}>Home</NavLink>
             </li>
         </ul>
         <ul className="nav navbar-nav ml-auto">
+
+        {available && symbol.length !== 0 && filteredSymbols.length === 0 ? <>
+
+        <form className="d-flex" onSubmit={doNothing}>
+            <div>
+                <input 
+                style={{
+                    width: "330px",
+                    borderTopRightRadius: "0px",
+                    borderBottomRightRadius: "0px",
+                    border: "0px",
+                    height: "38px"
+                }}
+                className="form-control"
+                placeholder="Search for a Ticker or Company name here"
+                name="ticker"
+                value={symbol}
+                onChange={handleFilter}
+                />
+                
+                <div id="dataResult">
+                        <div style={{paddingLeft: "10px"}}>
+                            No results found
+                        </div>
+                </div>
+            </div>
+        </form>
+            
+        </>:<>
+
         <form className="d-flex" onSubmit={handleSubmit}>
             <div>
                 <input 
@@ -104,21 +137,25 @@ const Navbar = (props) => {
                 />
                 
                 {available && symbol.length !== 0 && <>
-                <div id="dataResult">
-                    {filteredSymbols.slice(0, 15).map((value, key) => {
-                        return <a key={key} style={{textDecoration: "none"}} href={`${process.env.REACT_APP_CLIENT_DOMAIN}/company/quote/${value.symbol}`}>
-                        <div /*onClick={handleSubmit}*/ id="dataItems" className="d-flex">
-                            <div id="dropdownSymbol">{value.symbol}</div>
-                            <div id="dropdownName">{value.name}</div>
-                            <div id="exch">{value.exchange}</div>
-                        </div>
-                    </a>
-                            
-                    })}
-                </div>
-                </>}
+                    <div id="dataResult">
+                        {filteredSymbols.slice(0, 15).map((value, key) => {
+                            return <a key={key} style={{textDecoration: "none"}} href={`${process.env.REACT_APP_CLIENT_DOMAIN}/company/quote/${value.symbol}`}>
+                            <div /*onClick={handleSubmit}*/ id="dataItems" className="d-flex">
+                                <div id="dropdownSymbol">{value.symbol}</div>
+                                <div id="dropdownName">{value.name}</div>
+                                <div id="exch">{value.exchange}</div>
+                            </div>
+                        </a>
+                                
+                        })}
+                    </div>
+                    </> }
             </div>
         </form>
+
+        </>}
+
+
             <button 
             className=" btn btn-light" 
             style={{

@@ -1,36 +1,28 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
-import { TickerContext } from './TickerContext';
 import { getRandomColor, createImageFromName } from './Utils';
 
 const CompanyHeader = (props) => {
 
-    const [data, setData] = useContext(TickerContext);
     const [loading, setLoading] = useState(false);
+    const [info, setInfo] = useState(null);
+    const symbol = `${props.location.pathname.split("/").slice(-1)[0]}`
 
     const getQuote = async () => {
         setLoading(true);
         const info = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${props.location.pathname.split("/").slice(-1)[0]}`)
         const jsonInfo = await info.json();
-        setData(jsonInfo)
-        setLoading(false);
-    }
-
-    const setTheData = () => {
-        setLoading(true);
-        setData(data)
-        //console.log(data)
+        setInfo(jsonInfo)
         setLoading(false);
     }
 
     useEffect(() => {
-        setTheData()
         getQuote()
         // eslint-disable-next-line
-    }, [])
+    }, [symbol])
 
     if(loading){
-        return <div style={{marginTop: "180px"}}>
+        return <div style={{marginTop: "193px"}}>
                             <nav className="navbar-expand-sm mt-2" style={{backgroundColor: "#e3f2fd", width: "100%"}}>
                 <div style={{ width: "100%"}} id="navbarNav">
                     <ul className="navbar-nav . justify-content-around">
@@ -62,31 +54,31 @@ const CompanyHeader = (props) => {
     return <Fragment>
                 <div style={{marginTop: "80px"}}>
                 <div>
-            {data.profile && <>
+            {info && <>
                 <div className="d-flex . mt-5">
                     <div className="col-sm-2" style={{display: "flex", alignItems: "center", width: "100px"}}>
-                        <img id="prImg"  alt="company" src={data.profile[0].image}
+                        <img id="prImg"  alt="company" src={info.profile[0].image}
                         onError={(e)=>{e.target.onerror = null; e.target.src=`${createImageFromName(100, `${props.location.pathname.split("/").slice(-1)[0]}`, getRandomColor())}`   }}></img>
                     </div>
                     <div className="col-sm-10">
-                        <h2 style={{margin: "2px"}}>{data.profile[0].companyName} {`(${props.location.pathname.split("/").slice(-1)[0]})`}</h2>
-                        <p id="exchange">{data.profile[0].exchangeShortName} {`${data.profile[0].exchange} -- price quoted in ${data.profile[0].currency}`}</p>
+                        <h2 style={{margin: "2px"}}>{info.profile[0].companyName} {`(${props.location.pathname.split("/").slice(-1)[0]})`}</h2>
+                        <p id="exchange">{info.profile[0].exchangeShortName} {`${info.profile[0].exchange} -- price quoted in ${info.profile[0].currency}`}</p>
                         <div className="d-flex . mt-0 . align-items-end">
-                            <h2 style={{fontWeight: "650"}}>{data.quote[0].price.toFixed(2)}</h2>
+                            <h2 style={{fontWeight: "650"}}>{info.quote[0].price.toFixed(2)}</h2>
                             <p style={{
                                 marginLeft: "10px", 
                                 marginBottom: "8px", 
                                 fontSize: "20px",
                                 fontWeight: "700",
-                                color: data.quote[0].change > 0 ? "green" : "red"
-                                }}>{data.quote[0].change.toFixed(2)}</p>
+                                color: info.quote[0].change > 0 ? "green" : "red"
+                                }}>{info.quote[0].change.toFixed(2)}</p>
                             <p style={{
                                 marginLeft: "10px", 
                                 marginBottom: "8px", 
                                 fontSize: "20px",
                                 fontWeight: "700",
-                                color: data.quote[0].changesPercentage > 0 ? "green" : "red"
-                                }}>{`(${data.quote[0].changesPercentage.toFixed(2)}%)`}</p>
+                                color: info.quote[0].changesPercentage > 0 ? "green" : "red"
+                                }}>{`(${info.quote[0].changesPercentage.toFixed(2)}%)`}</p>
                         </div>
                     </div>
                 </div>

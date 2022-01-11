@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
-import {TickerProvider} from "./components/TickerContext";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { TickerProvider } from "./components/TickerContext";
 
 //components
 import HistPrices from "./components/HistPrices";
@@ -30,6 +30,7 @@ import UpdateProfile from './components/UpdateProfile';
 import Signup from './components/Signup';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import NotFound from './components/NotFound';
 
 function App() {
 
@@ -40,29 +41,33 @@ function App() {
         <Fragment>
           <div className="container">
             <Route path="/" component={Navbar}/>
-            <PrivateRoute exact path="/profile" component={Dashboard} />
-            <PrivateRoute path="/update-profile" component={UpdateProfile} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-            <Route path="/home" component={StockNews} />
             <Route path="/company/" component={CompanyHeader} />
-            <Route path="/company/profile/:symb" component={Profiletwo} />
-            <Route path="/company/historical/:symb" component={HistPrices} />
-            <Route path='/company/quote/:symb' component={Myquote} />
-            <Route path="/company/news/:symb" component={CompanyNews} />
             <Route path="/company/financials/:report/:period/:symb" component={FinancialNav} />
-            <Route path="/company/financials/income-statement/quarter/:symb" component={IncomeQ} />
-            <Route path="/company/financials/income-statement/annual/:symb" component={IncomeA} />
-            <Route path="/company/financials/balance-sheet/annual/:symb" component={BalanceA} />
-            <Route path="/company/financials/balance-sheet/quarter/:symb" component={BalanceQ} />
-            <Route path="/company/financials/cash-flow/quarter/:symb" component={CashflowQ} />
-            <Route path="/company/financials/cash-flow/annual/:symb" component={CashflowA} />
             <Route path="/company/statistics/:report/:period/:symb" component={StatisticsNav} />
-            <Route path="/company/statistics/key-metrics/annual/:symb" component={KeyMetricsA} />
-            <Route path="/company/statistics/key-metrics/quarter/:symb" component={KeyMetricsQ} />
-            <Route path="/company/statistics/ratios/annual/:symb" component={RatiosA} />
-            <Route path="/company/statistics/ratios/quarter/:symb" component={RatiosQ} />
+            <Switch>
+              <Route path="/company/financials/income-statement/quarter/:symb" component={IncomeQ} />
+              <Route path="/company/financials/income-statement/annual/:symb" component={IncomeA} />
+              <Route path="/company/financials/balance-sheet/annual/:symb" component={BalanceA} />
+              <Route path="/company/financials/balance-sheet/quarter/:symb" component={BalanceQ} />
+              <Route path="/company/financials/cash-flow/quarter/:symb" component={CashflowQ} />
+              <Route path="/company/financials/cash-flow/annual/:symb" component={CashflowA} />
+              <Route path="/company/statistics/key-metrics/annual/:symb" component={KeyMetricsA} />
+              <Route path="/company/statistics/key-metrics/quarter/:symb" component={KeyMetricsQ} />
+              <Route path="/company/statistics/ratios/annual/:symb" component={RatiosA} />
+              <Route path="/company/statistics/ratios/quarter/:symb" component={RatiosQ} />
+              <Route path="/company/profile/:symb" component={Profiletwo} />
+              <Route path="/company/historical/:symb" component={HistPrices} />
+              <Route path='/company/quote/:symb' component={Myquote} />
+              <Route path="/company/news/:symb" component={CompanyNews} />
+              <PrivateRoute exact path="/profile" component={Dashboard} />
+              <PrivateRoute exact path="/update-profile" component={UpdateProfile} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/forgot-password" component={ForgotPassword} />
+              <Route path="/home" component={StockNews} />
+              
+              <Route path="*" ><NotFound/></Route>
+            </Switch>
           </div>
         </Fragment>
       </BrowserRouter>
