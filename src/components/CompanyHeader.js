@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { getRandomColor, createImageFromName } from './Utils';
+import NotFound from "./NotFound";
 
 const CompanyHeader = (props) => {
 
@@ -54,7 +55,7 @@ const CompanyHeader = (props) => {
     return <Fragment>
                 <div style={{marginTop: "80px"}}>
                 <div>
-            {info && <>
+            {info && info.profile[0] !== undefined && info.profile[0].companyName !== undefined ? <>
                 <div className="d-flex . mt-5">
                     <div className="col-sm-2" style={{display: "flex", alignItems: "center", width: "100px"}}>
                         <img id="prImg"  alt="company" src={info.profile[0].image}
@@ -106,7 +107,7 @@ const CompanyHeader = (props) => {
                         </li>
                     </ul>
                 </div>
-            </nav></>}
+            </nav></> : <>{/*<NotFound/>*/}</>}
         </div>
         </div>
                 

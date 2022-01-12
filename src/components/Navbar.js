@@ -1,13 +1,15 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Link, useHistory, NavLink } from 'react-router-dom';
+import { Link, useHistory, NavLink, useLocation } from 'react-router-dom';
 import { TickerContext } from './TickerContext';
 import { useAuth } from "../contexts/AuthContext";
 import ConfirmLogout from './ConfirmLogout';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 const Navbar = (props) => {
+
+    let location = useLocation()
+    console.log(location.pathname)
 
     const getAvailable = async () => {
         const availableData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/symbols`);
@@ -28,7 +30,7 @@ const Navbar = (props) => {
     const history = useHistory();
 
     const getData = async () => {
-        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${props.location.pathname.split("/").slice(-1)[0]}`)
+        const data = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/company/info/${location.pathname.split("/").slice(-1)[0]}`)
         const jsonData = await data.json();
         setQuote(jsonData.quote);
         setProfile(jsonData.profile);
@@ -79,8 +81,9 @@ const Navbar = (props) => {
         e.preventDefault();
     }
 
-
-    return <Fragment>
+        return <Fragment>
+         
+          
         <nav className="navbar fixed-top  navbar-expand-sm bg-dark navbar-dark">
         <NavLink className="navbar-brand" to={`/home`}>INTALLEX</NavLink>
         <ul className="navbar-nav">
@@ -183,7 +186,11 @@ const Navbar = (props) => {
         
         </ul>
         </nav>
-    </Fragment>
+
+
+    </Fragment> 
+    
+     
 }
 
 export default Navbar;

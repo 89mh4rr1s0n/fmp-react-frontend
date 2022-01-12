@@ -36,7 +36,7 @@ const Myquote = (props) => {
     }
 
     return <Fragment>
-        {quote && <>
+        {!loading && quote !== null && quote[0] !== undefined ? <>
         <div className="d-flex . mt-5">
             <div id="HASH" className="justify-content-between mr-4">
                 <div>Previous Close</div>
@@ -320,7 +320,7 @@ const Myquote = (props) => {
             </div> 
             </>}
             
-            </>}
+            </> : <div></div>}
 
                 
                 

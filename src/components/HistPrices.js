@@ -34,7 +34,7 @@ const HistPrices = () => {
     }
 
     return <Fragment>
-        {histData && <>
+        {!loading && histData !== null && histData.historical !== undefined ? <>
         <table className="table mt-5 text-center">
             <thead>
                 <tr id="keyExecs">
@@ -60,7 +60,7 @@ const HistPrices = () => {
                     </tr>
                 ))}
             </tbody>
-        </table></>}
+        </table></> : <div></div>}
     </Fragment>
 }
 

@@ -28,13 +28,13 @@ const CompanyNews = () => {
     }
 
     if(!loading && news && news.length === 0){
-        return <div className="mt-3 ml-4">
+        return <div className="mt-5" style={{textAlign: "center"}}>
             No News Available for this Company/Instrument
         </div>
     }
 
     return <Fragment>
-
+        {!loading && news !== null && news[0] !== undefined ? <>
         <div style={{marginTop: "20px",marignBottom: "40px"}}>
             {news && <>
             {news.map((n, index) =>(
@@ -66,7 +66,7 @@ const CompanyNews = () => {
             
             </>}
         </div>
-
+        </> : <div></div>}
 
     </Fragment>
 
