@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { getRandomColor, createImageFromName } from './Utils';
-import NotFound from "./NotFound";
+//import NotFound from "./NotFound";
 
 const CompanyHeader = (props) => {
 
